@@ -5,6 +5,8 @@ from PIL import ImageTk, Image, ImageFilter
 from random import shuffle
 import tkinter as tk
 import glob
+import argparse
+from os.path import isdir
 
 
 class App(tk.Tk):
@@ -73,11 +75,21 @@ class App(tk.Tk):
 
 
 if __name__ == '__main__':
-    # seconds between images
-    delay = 1
+    parser = argparse.ArgumentParser()
+    parser.add_argument('folder_path', help='absolute path to folder of images')
+    parser.add_argument('delay', help='seconds between changing images', type=int)
+    args = parser.parse_args()
+
+    delay = args.delay
+    folderpath = args.folder_path
+
+    if not isdir(folderpath):
+        print(folderpath + ' is not a folder or is not an absolute path')
+        raise SystemExit
+    folderpath = folderpath.rstrip('/\\') + '/*'
 
     filenames = []
-    for filename in glob.glob('./*'):
+    for filename in glob.glob(folderpath, recursive=True):
         filenames.append(filename)
 
     app = App(filenames, delay)
