@@ -15,6 +15,7 @@ class App(tk.Tk):
         # root is self
         tk.Tk.__init__(self)
         self.attributes("-fullscreen", True)
+        self.config(cursor='none')
         self.width, self.height = self.winfo_screenwidth(), self.winfo_screenheight()
 
         self.delay = delay * 1000
