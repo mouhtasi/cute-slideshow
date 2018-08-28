@@ -41,9 +41,8 @@ class App(tk.Tk):
         background = self.blur_background(foreground)
 
         # slide the photo to the centre of the screen
-        # don't need the height since it's already resized to the screen height
-        fwidth = foreground.size[0]
-        foreground_centre = (self.width//2 - fwidth//2, 0)
+        fwidth, fheight = foreground.size
+        foreground_centre = (self.width//2 - fwidth//2, self.height//2 - fheight//2)
         # overlay the foreground over the blurred background
         background.paste(foreground, foreground_centre)
 
