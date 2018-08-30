@@ -54,18 +54,20 @@ class App(tk.Tk):
 
     def blur_background(self, foreground):
         width, height = foreground.size
-        scale = 3
+        wscale = self.width / width
+        hscale = self.height / height
+        scale = max(wscale, hscale)
         # expand the background so it fills areas around the foreground image
-        background = foreground.resize((width * scale, height * scale))
+        background = foreground.resize((int(width * scale), int(height * scale)))
         width, height = background.size
 
-        # crop the background to the size of the screen
+        # crop the background to the size of the screen, then blur
         background = background.crop((
             width//2 - self.width//2,
             height//2 - self.height//2,
             width//2 + self.width//2,
             height//2 + self.height//2)
-        ).filter(ImageFilter.GaussianBlur(radius=20))
+        ).filter(ImageFilter.GaussianBlur(radius=10))
 
         return background
 
