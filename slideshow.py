@@ -20,13 +20,25 @@ class App(tk.Tk):
 
         self.delay = delay * 1000
         # shuffle then loop through the photos
-        shuffle(image_files)
-        self.pictures = cycle(image_files)
+        self.image_files = image_files
+        shuffle(self.image_files)
+        self.pictures = cycle(self.image_files)
+        self.num_img_files = len(self.image_files)
+        self.pic_ctr = self.num_img_files
+
         self.window = tk.Label(self)
         self.window.pack()
 
     def show_slides(self):
+        # shuffle the order of the photos each time we loop through them all
+        if self.pic_ctr == 0:
+            shuffle(self.image_files)
+            self.pictures = cycle(self.image_files)
+            self.pic_ctr = self.num_img_files
+            print(self.image_files)
+
         img_path = next(self.pictures)
+        self.pic_ctr -= 1
 
         img_object = Image.open(img_path)
 
