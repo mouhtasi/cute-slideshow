@@ -35,7 +35,6 @@ class App(tk.Tk):
             shuffle(self.image_files)
             self.pictures = cycle(self.image_files)
             self.pic_ctr = self.num_img_files
-            print(self.image_files)
 
         img_path = next(self.pictures)
         self.pic_ctr -= 1
